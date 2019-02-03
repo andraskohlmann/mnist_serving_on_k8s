@@ -13,13 +13,13 @@ class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
-rando = random.randint(0,len(test_images)-1)
+rando = random.randint(0, len(test_images) - 1)
 data = json.dumps({"signature_name": "serving_default", "instances": test_images[0:3].tolist()})
-print('Data: {} ... {}'.format(data[:50], data[len(data)-52:]))
+print('Data: {} ... {}'.format(data[:50], data[len(data) - 52:]))
 
 headers = {"content-type": "application/json"}
-json_response = requests.post('http://localhost:8501/v1/models/mnist:predict', data=data, headers=headers)
+json_response = requests.post('http://localhost:8501/v1/models/mnist/1:predict', data=data, headers=headers)
 predictions = json.loads(json_response.text)['predictions']
 
 print('The model thought this was a {} (class {}), and it was actually a {} (class {})'.format(
-  class_names[np.argmax(predictions[0])], test_labels[0], class_names[np.argmax(predictions[0])], test_labels[0]))
+    class_names[np.argmax(predictions[0])], test_labels[0], class_names[np.argmax(predictions[0])], test_labels[0]))
