@@ -5,6 +5,12 @@ import os
 
 import tensorflow as tf
 from tensorflow import keras
+from tensorflow.python.keras.backend import set_session
+
+config = tf.ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.2
+sess = tf.Session(config=config)
+set_session(sess)
 
 saved_model_path = 'saved_model'
 
@@ -38,7 +44,7 @@ print('export_path = {}\n'.format(export_path))
 
 
 tf.saved_model.simple_save(
-    keras.backend.get_session(),
+    sess,
     export_path,
     inputs={'input_image': model.input},
     outputs={t.name: t for t in model.outputs})
