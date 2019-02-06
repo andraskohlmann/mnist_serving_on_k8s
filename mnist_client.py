@@ -23,7 +23,7 @@ data = json.dumps({"signature_name": "serving_default", "instances": test_images
 print('Data: {} ... {}'.format(data[:50], data[len(data) - 52:]))
 
 headers = {"content-type": "application/json"}
-json_response = requests.post('http://{}/v1/models/mnist/1:predict'.format(server_uri), data=data, headers=headers)
+json_response = requests.post('http://{}/v1/models/mnist/versions/1:predict'.format(server_uri), data=data, headers=headers)
 print(json_response)
 predictions = json.loads(json_response.text)['predictions']
 
