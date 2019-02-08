@@ -2,7 +2,9 @@ FROM tensorflow/serving:latest-gpu
 
 ENV MODEL_NAME mnist
 
-COPY saved_models/* /models/mnist/
+RUN mkdir /models/mnist 
+RUN mkdir /models/mnist/1
+COPY saved_model/1 /models/mnist/1
 
 # Create a script that runs the model server so we can use environment variables
 # while also passing in arguments from the docker command line
